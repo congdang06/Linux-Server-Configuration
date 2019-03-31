@@ -1,10 +1,14 @@
+<html>
+<head>
+    <title>Linux Server Configuration</title>
+</head>
+<body>
 
 <h1 style="text-transform:capitalize; color: #010806;">Project Description </h1>
-
+<p>You will take a baseline installation of a Linux server and prepare it to host your web applications. You will secure your server from a number of attack vectors, install and configure a database server, and deploy one of your existing web applications onto it.</p>
 
 <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 1: </b> Create account at AWS Lightsail (Virtual Server) </h1>
 
-   
     <ol start="1">
         <li>Go to <a href="https://aws.amazon.com/lightsail/">AWS Lightsail</a></li>
         <li><b>Log in</b></li>
@@ -35,6 +39,7 @@
         <p>Note: When you set up OAuth for your application, you will need a DNS name that refers to your instance's IP address. You can use the xip.io service to get one; this is a public service offered for free by Basecamp. For instance, the DNS name 54.84.49.254.xip.io refers to the server above.</p>
         <img src='picture/connect_ubuntu.png' width="600", heigh="200" alt="startup">
     </ol>
+</p>
 
 <hr border: 15px; border-style: dashed;>
 
@@ -532,3 +537,4 @@
                     </ul>
             </ul>
     </ul>
+</html>
