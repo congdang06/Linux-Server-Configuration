@@ -1,14 +1,9 @@
-<html>
-<head>
-    <title>Linux Server Configuration</title>
-</head>
-<body>
-
 <h1 style="text-transform:capitalize; color: #010806;">Project Description </h1>
 <p>You will take a baseline installation of a Linux server and prepare it to host your web applications. You will secure your server from a number of attack vectors, install and configure a database server, and deploy one of your existing web applications onto it.</p>
 
 <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 1: </b> Create account at AWS Lightsail (Virtual Server) </h1>
 
+<p>
     <ol start="1">
         <li>Go to <a href="https://aws.amazon.com/lightsail/">AWS Lightsail</a></li>
         <li><b>Log in</b></li>
@@ -20,6 +15,7 @@
         <li><b>Choose an instance image: Ubuntu</b></li>
         <p>Lightsail supports a lot of different instance types. An instance image is a particular software setup, including an operating system and optionally built-in applications.</p>
 
+<p>
         <p>For this project, you'll want a plain Ubuntu Linux image. There are two settings to make here. First, choose "OS Only" (rather than "Apps + OS"). Second, choose Ubuntu as the operating system.</p>
         <img src='picture/pick_ubuntu.png' width="600", heigh="200" alt="pick ubuntu">
         <li><b>Choose your instance plan</b></li>
@@ -34,8 +30,10 @@
         <li><b>Running</b></li>
         <p>Once your instance has started up, you can log into it with SSH from your browser.</p>
 
+<p>
         <p>The public IP address of the instance is displayed along with its name. In the above picture it's 54.84.49.254.</p>
 
+<p>
         <p>Note: When you set up OAuth for your application, you will need a DNS name that refers to your instance's IP address. You can use the xip.io service to get one; this is a public service offered for free by Basecamp. For instance, the DNS name 54.84.49.254.xip.io refers to the server above.</p>
         <img src='picture/connect_ubuntu.png' width="600", heigh="200" alt="startup">
     </ol>
@@ -44,7 +42,8 @@
 <hr border: 15px; border-style: dashed;>
 
 <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 2: </b> AWS Lightsail download the private key to local machine </h1>
-    
+ 
+<p>   
     <ol start="1">
         <li>On the top right corner, click the <i>Account</i></li>
         <li>Select SSH keys and click <b><i>Create New</i></b></li>
@@ -61,17 +60,20 @@
         <li>Testing the connection from <b>Local Machine</b> to <b>AWS lightsaile</b>
             ssh -i ~/.ssh/udacity_key.rsa ubuntu@34.219.239.192 where <code style="background-color:#9e9e9e4f">34.219.239.192</code> is IP address
 
+<p>
             <p>You will receive the warning "Are you sure you want to continue connecting(yes/no)?" Answer <b>"Yes"</b></p>
 
+<p>
             <p>If you recieve this error warning <b>Permission Denied (publickey)</b> or you are able to connect but it connects thru the default port 22 </p>
             <img src="picture/first_log_in.png" width="700" height="400">
             <p> Please follow the <b>Step 3</b> to finish the configuration</p>
         </li>
     </ol>
 <hr border: 15px; border-style: dashed;>
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 3: </b> AUpdate UBUNTU security, change port, configure UFW <b>(Connect to SSH on the virtual server AWS Lightsail) </b> </h1>
 
+<p>
     <ol start="1">
     <li><h3>Secure ubuntu server</h3></li>
         <ol start="1">
@@ -81,6 +83,7 @@
             <li>sudo apt-get install finger</li>
         </ol><br>
 
+<p>
     <li>Edit <b><code style="background-color:#9e9e9e4f">sshd_config file</code></b></li>
         <ol start="1">
               <li><b>sudo nano /etc/ssh/sshd_config</b> change port 22 to 2200 to prevent attacks on the default port</li><br>
@@ -89,6 +92,7 @@
             <li>restart ssh</li>
                 <ul><li> sudo service ssh restart </li></ul><br>
 
+<p>
             <li><b>Configure the Uncomplicated Firewall (UFW) to allow only the incoming connection for SSH (port 2200), HTTP (port 80), and NTP (port 123)</b>
                 <ul>
                     <li style="padding-bottom: 5px;">sudo ufw status</li>
@@ -108,23 +112,25 @@
            <li>Back AWS lightsail => Networking tab</li>
                 <p>add more rule on the firewall</p>
                 <img src="picture/change_firewall.png" width="500" height="200">
-          
+ 
+ <p>         
         </ol>
         <p><b>Note:</b>From the local machine (terminal), execute <b>ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@34.219.239.192</b> where <b> <code style="background-color:#9e9e9e4f; font-size: 16px">34.221.39.98</code></b> is the public IP address</p>
         <img src="picture/be_log_in.png" width="800" height="400">
     </ol>
 <hr border: 15px; border-style: dashed;>
 
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 4: </b> Prevent hacker to attack your network. Use <b> Fail2Ban (protected computer servers from brute-force attacks</b></h1>
 
+<p>
     <ol start="1">
         <li> Install Fail2Ban</li>
             <ul><li style="padding-bottom: 10px; padding-top:5px"> sudo apt-get install fail2ban</li></ul>
-
+<p>
         <li>Install sendmail for email notice</li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">sudo apt-get install sendmail iptables-persistent </li></ul>
-
+<p>
         <li>Copy of the file</li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local</li></ul>
         <li>modify the jail.local file</li>
@@ -143,9 +149,9 @@
         <li>Restart the service </li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">sudo service fail2ban restart</li></ul>
     </ol>
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 4.1: </b> Configure the automatically software update</h1>
-
+<p>
     <ol start="1">
         <li>Enabled automatic security update by <b>unattended-upgrades</b></li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">sudo apt-get install unattended-upgrades</li></ul>
@@ -156,7 +162,7 @@
                      "${distro_id}:${distro_codename}-updates";</li><br>
                      <img src="picture/uncomment.png" width="800" height="400">
             </uL><br>
-
+<p>
         <li>Modify auto-grade as follow</li>
             <ul>
                 <li>sudo nano /etc/apt/apt.conf.d/20auto-upgrades </li>
@@ -169,9 +175,9 @@
             <ul><li style="padding-bottom: 10px; padding-top:5px; list-style-type: 'circle';">sudo dpkg-reconfigure --priority=low unattended-upgrades</li></ul>
        <!--  <li>Restart Apache</li>
             <ul><li>sudo service apache2 restart</li></ul> -->
-
+<p>
      <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 4.2: </b> update latest software</h1>
-
+<p>
     <ol start="1">
         <li>Follow these command to update the most recent</li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">sudo apt-get update</li>
@@ -195,17 +201,17 @@
                     </ul>
             </ul>
     </ol>
-
+<p>
     <h2>Provide <b>grader</b> access permission</h2>
     <ol start="1">
         <li>Modify the visudo</li>
             <ul><li>sudo visudo</li>
                 <img src="picture/visudo.png" width=700 height=400 >
             </ul><br>
-
+<p>            
         <li>Search for this info:</li>
             <ul><li style="padding-bottom: 10px; padding-top:10px">root  ALL=(ALL:ALL) ALL</li></ul>
-
+<p>
         <li>Add grader below root</li>
             <ul><li style="padding-bottom: 10px; padding-top:5px">grader ALL=(ALL:ALL) ALL</li>
                 <img src="picture/add_grader.png" width=400 height=200>
@@ -218,13 +224,13 @@
                     <ul><li>password confirm</li></ul>
                 <img src="picture/check_grader.png" width=600 height=400>
             </ul>
-
+<p>
     </ol>
 <hr border: 15px; border-style: dashed;>
 
-    
+<p>    
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 6: </b> Using <b>ssh-keygen</b> to create SSH key pair</h1>
-
+<p>
     <ol start="1">
         <li><b>On terminal (Local machine).</b></li>
         <ul>
@@ -235,10 +241,10 @@
                 <ul><li style="padding-bottom: 10px; padding-top:10px">cat ~/.ssh/grader_udacity_key.pub</li>
                     <li>Copy the KEY </li>
                 </ul>
-
+<p>
             <li><b>Connect to virtual server (AWS lightsail)</b></li>
         </ul><br>
-
+<p>
         <li>Connect to the host (virtual server AWS lightsail)</li>
             <ul>
                 <li>Login as <code style="background-color:#9e9e9e4f; font-size: 18px">grader su - grader</code></li>
@@ -262,7 +268,7 @@
                         <li>exit</li>
                     </ul>
             </ul>
-
+<p>
         <li>Back to the local machine (terminal)</li>
             <ul><li>excecute</li>
                 <ul>
@@ -272,9 +278,9 @@
             </ul>
     </ol>
 <hr border: 15px; border-style: dashed;>
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 7: </b> Configure UTC local time zone</h1>
-
+<p>
     <ul>
         <li>Log in as <code style="background-color:#9e9e9e4f; font-size: 18px">grader su - grader</code></li>
         <uL><li tyle="padding-bottom: 10px; padding-top:10px">Time Zone configuration</li>
@@ -284,7 +290,7 @@
     </ul>
 <hr border: 15px; border-style: dashed;>
 
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 8: </b> apache installation and configuration</h1>
     <ol start="1">
         <li>Login as <code style="background-color: #9e9e9e4f">grader su - grader</code></li>
@@ -294,7 +300,7 @@
             <li>Testing Apache after installation, open the browser and paste the AWS lightsail public IP address <code style="background-color: #9e9e9e4f">http://34.221.39.98/</code></li>
             <img src="picture/apache_test.png" width=600 height=200>
         </ul><br>
-
+<p>
         <li>Install mod_wsgi package for python3</li>
         <ul><li>sudo apt-get install libapache2-mod-wsgi-py3</li>
             <img src="picture/mod_wsgi.png" width=500 height=200>
@@ -304,7 +310,7 @@
                 <img src="picture/enable_mod.png" width=600 height=150>
             </ul>
         </ul>
-
+<p>
         <li>Create the virtual environment</li>
             <ul><li>sudo apt-get install python-pip</li>
                 <li>sudo pip install virtualenv</li>
@@ -318,9 +324,9 @@
     </ol>
 <hr border: 15px; border-style: dashed;>
 
-
+<p>
      <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 9: </b> Git Instalation</h1>
-
+<p>
     <ul>
         <li>Log in as <code style="background-color:#9e9e9e4f; font-size: 16px">grader su - grader</code></li><br>
             <ul><li style="padding-bottom: 10px;">sudo apt-get install git</li></ul>
@@ -347,7 +353,7 @@
             <li style="padding-bottom: 5px;">mv itemCatalogApplication.py __init__.py</li>
             <img src="picture/git_clone.png" width=600 height=300>
         </ul>
-
+<p>
     <li style="padding-top: 20px;">Open <code style="background-color:#9e9e9e4f; font-size: 18px;">__init__.py</code></li>
         <ul><li style="padding-bottom: 5px; padding-top: 5px;">sudo nano __init__.py</li>
             <ul><li>Comment <code style="background-color:#9e9e9e4f; font-size: 16px;">app.run(host='0.0.0.0', port=5000)</code></li></ul>
@@ -387,9 +393,10 @@
 </ul>
 <hr border: 15px; border-style: dashed;>
 
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806;"><b style="text-transform: uppercase;">step 12: </b> postgreSQL installation and configuration</h1>
 
+<p>
     <ol start="1">
         <li>Still log in as <code style="background-color:#9e9e9e4f; font-size: 16px;">grader su - grader password: grader</code></li>
         <ul><li>PostgreSQL installation</li>
@@ -411,6 +418,7 @@
                 <li>GRANT ALL ON SCHEMA public TO catalog;</li>
             </ul>
 
+<p>
         <li>exit \q</li>
         <li>Back to grader </li>
             <ul><li>Run python database_setup.py</li>
@@ -426,12 +434,14 @@
         <li>Restart postgresql</li>
             <ul><li>sudo service postgresql restart</li></ul>
 
+<p>
         <li>Back to the <code style="background-color:#9e9e9e4f">grade</code> terminal <code style="background-color:#9e9e9e4f">exit</code></li>
         <li>Create <code style="background-color:#9e9e9e4f">catalog</code> as we did for the <code style="background-color:#9e9e9e4f">grader</code></li>
             <ul>
                 <li>sudo adduser catalog<li>
                 <img src="picture/catalog_linux.png" width=400 height=200>
-            
+    
+<p>        
                 <li>Run <code style="background-color:#9e9e9e4f">sudo visudo</code> and add <code style="background-color:#9e9e9e4f">catalog ALL=(ALL:ALL) ALL</code> as image below</li>
                 <img src="picture/catalog_config.png" width=600 height=200>
             </li>
@@ -446,7 +456,7 @@
     </li></ul></ol>
 
 <hr border: 15px; border-style: dashed;>
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806 ;"><b style="text-transform: uppercase;">step 13: </b> Install Other Package and Dependencies </h1>
     <ul>
     <li>Log in as <code style="background-color:#9e9e9e4f">grader</code>
@@ -482,9 +492,10 @@
 </ul>
 <hr border: 15px; border-style: dashed;>
 
-
+<p>
     <h1 style="text-transform:capitalize; color: #010806 ;"><b style="text-transform: uppercase;">step 14: </b> run an application </h1>
 
+<p>
     <ul>
         <li>still in <code style="background-color:#9e9e9e4f">cd /var/wwww/catalog</code></li>
             <ul><li style="padding-bottom: 10px; padding-top:10px"><code style="background-color:#9e9e9e4f">sudo chown -R www-data:www-data catalog/</code></li>
@@ -510,17 +521,20 @@
     <li>Under <code style="background-color:#9e9e9e4f">Create Credentials</code> select <code style="background-color:#9e9e9e4f"> Oauth client ID</code></li>
     <img src="picture/credential.png" width=500 height=250>
 
+<p>
     <li>Go to <a href="https://www.hcidata.info/host2ip.cgi">hcidata</a> to convert your public IP address to hostname</li>
     <img src="picture/oauth.png" width=700 height=400>
     <li>Download secret JSON and copy the content of it</li>
     <li>Open <code style="background-color:#9e9e9e4f">sudo nano /var/www/catalog/client_secrets.json </code> erase the old secret and paste new one</li>
     <li>Open <code style="background-color:#9e9e9e4f">sudo nano templates/login.html </code> and replace <code style="background-color:#9e9e9e4f">client_id </code> with new code </li>
 
+<p>
     <h2>Troubleshooting</h2>
     <ul>
         <li>After login, but it doesn't display catalog page</li>
         <li>Steps:</li>
 
+<p>
             <ul><li>sudo tail -10 /var/log/apache2/error.log </li>
                 <li>still in cd /var/www/catalog/catalog</li>
                 <li>cd templates</li>
